@@ -1,0 +1,1 @@
+1. "Channels with reliability less than 0.1 are excluded.\n:" in the metadata description for TVSD, does this mean it also uses channels?
