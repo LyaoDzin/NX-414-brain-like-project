@@ -1,1 +1,2 @@
 1. "Channels with reliability less than 0.1 are excluded.\n:" in the metadata description for TVSD, does this mean it also uses channels?
+2. Make sure the order of stimuli in Model A and model B are the same (It seems to be the case)
