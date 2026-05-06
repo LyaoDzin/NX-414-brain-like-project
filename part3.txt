@@ -1,0 +1,51 @@
+class AttentionReadout(nn.Module):
+    def __init__(self, input_size: int, output_size: int,
+                 proj_dim: int = 64, dropout: float = 0.1):
+        super().__init__()
+        # aggressive compression first — 30000 → 64
+        self.input_proj   = nn.Linear(input_size, proj_dim)
+        self.norm         = nn.LayerNorm(proj_dim)
+        self.attn_dropout = nn.Dropout(p=dropout)
+
+        # attention on small proj_dim — tiny parameter count
+        self.query  = nn.Linear(proj_dim, proj_dim, bias=False)
+        self.key    = nn.Linear(proj_dim, proj_dim, bias=False)
+        self.value  = nn.Linear(proj_dim, proj_dim, bias=False)
+        self.scale  = proj_dim ** 0.5
+
+        self.readout = nn.Linear(proj_dim, output_size)
+
+    def forward(self, x):
+        x    = self.input_proj(x)                              # (N, 64)
+        x    = self.norm(x)
+        q    = self.query(x)
+        k    = self.key(x)
+        v    = self.value(x)
+        attn = torch.softmax(q * k / self.scale, dim=-1)
+        attn = self.attn_dropout(attn)
+        x    = attn * v                                        # (N, 64)
+        return self.readout(x)                                 # (N, output_size)
+class AttentionReadout(nn.Module):
+    def __init__(self, input_size: int, output_size: int, proj_dim: int = 128):
+        super().__init__()
+        self.input_proj    = nn.Linear(input_size, proj_dim)
+        self.query         = nn.Linear(proj_dim, proj_dim)
+        self.key           = nn.Linear(proj_dim, proj_dim)
+        self.value         = nn.Linear(proj_dim, proj_dim)
+        self.scale         = proj_dim ** 0.5
+        self.attn_dropout  = nn.Dropout(p=0.1)
+        self.norm          = nn.LayerNorm(proj_dim)
+        self.activation    = nn.ReLU()           # ← breaks linearity
+        self.readout       = nn.Linear(proj_dim, output_size)
+
+    def forward(self, x):
+        x    = self.input_proj(x)               # (N, 30000) → (N, 128)
+        x    = self.norm(x)
+        q    = self.query(x)
+        k    = self.key(x)
+        v    = self.value(x)
+        attn = torch.softmax(q * k / self.scale, dim=-1)
+        attn = self.attn_dropout(attn)
+        x    = attn * v                         # (N, 128)
+        x    = self.activation(x)              # ← genuine nonlinearity
+        return self.readout(x)                  # (N, output_size)
