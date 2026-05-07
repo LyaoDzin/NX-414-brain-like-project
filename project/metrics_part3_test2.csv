@@ -1,0 +1,14 @@
+model,layer,dataset,subject,roi,pearson_r,pearson_r_nc,explained_variance,ev_nc,rsa,cka
+MODEL_A,layer1-0,TVSD,monkeyF,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer1-0,TVSD,monkeyN,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer2-0,TVSD,monkeyF,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer2-0,TVSD,monkeyN,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer1-0,TVSD,monkeyF,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer1-0,TVSD,monkeyN,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer1-0,TVSD,monkeyF,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer1-0,TVSD,monkeyN,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer2-0,TVSD,monkeyF,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer2-0,TVSD,monkeyN,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer3-0,TVSD,monkeyF,IT,nan,nan,0.0,0.0,nan,0.0
+MODEL_A,layer1-0,TVSD,monkeyF,IT,0.2534738,0.02636214,0.09566565,0.00103442,0.17710767,0.22332282
+MODEL_A,layer1-0,TVSD,monkeyN,IT,0.40816341,0.04183063,0.15906835,0.0016659,0.08545787,0.29138643
